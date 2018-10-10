@@ -111,9 +111,9 @@ def depthFirstSearch(problem):
             # if node not in the fringe or the explored set then
             if child not in explored:
                 # add node to the explored set
+                explored.append(node)
                 # expand the chosen node adding the resulting nodes to the fringe
                 fringe.push((child, actions + [child_actions], child_cost))
-                explored.append(node)
 
     return []
 
@@ -134,18 +134,19 @@ def breadthFirstSearch(problem):
             print "ACTIONS", actions
             print "EXPLORED", explored
 
-        # if node contains goal state then
-        if problem.isGoalState(node):
-            # return the corresponding solution
-            return actions
+        # if node not in the fringe or the explored set then
+        # add node to the explored set
+        if node not in explored:
+            explored.append(node)
 
-        for child, child_actions, child_cost in problem.getSuccessors(node):
-            # if node not in the fringe or the explored set then
-            if child not in explored:
-                # add node to the explored set
+            # if node contains goal state then
+            if problem.isGoalState(node):
+                # return the corresponding solution
+                return actions
+
+            for child, child_actions, child_cost in problem.getSuccessors(node):
                 # expand the chosen node adding the resulting nodes to the fringe
                 fringe.push((child, actions + [child_actions], child_cost))
-                explored.append(node)
 
     return []
 
@@ -174,9 +175,9 @@ def uniformCostSearch(problem):
             # if node not in the fringe or the explored set then
             if child not in explored:
                 # add node to the explored set
+                explored.append(node)
                 # expand the chosen node adding the resulting nodes to the fringe
                 fringe.push((child, actions + [child_actions], cost + child_cost), cost + child_cost)
-                explored.append(node)
 
     return []
 
@@ -212,10 +213,10 @@ def aStarSearch(problem, heuristic=nullHeuristic):
             # if node not in the fringe or the explored set then
             if child not in explored:
                 # add node to the explored set
+                explored.append(node)
                 # expand the chosen node adding the resulting nodes to the fringe
                 total_cost = cost + child_cost
                 fringe.push((child, actions + [child_actions], cost + child_cost), total_cost + heuristic(child, problem))
-                explored.append(node)
 
     return []
 
